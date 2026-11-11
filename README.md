@@ -16,6 +16,8 @@
 4. Đợi tải xong, bấm **Cài đặt**, rồi bấm **Xong**. Downloader hỏi có xóa file APK không thì chọn **Xóa**.
 5. Mở **BrainBreak TV** trong danh sách ứng dụng của TV và làm theo [Thiết lập lần đầu](#thiết-lập-lần-đầu).
 
+> **Nếu TV hiện "App blocked to protect your device" (Google Play Protect)**: đây là cảnh báo của Google với app cài ngoài CH Play có quyền Trợ năng, không phải app bị lỗi. Làm theo [Play Protect chặn app](#play-protect-chặn-app) bên dưới.
+
 ## Cách 2: Tải file APK từ repo rồi cài thủ công
 
 1. Mở trang [Releases](https://github.com/tunglq77tls/BrainBreak-TV-releases/releases/latest) và tải file **`brainbreak-tv.apk`** (khoảng 22 MB) về máy tính hoặc điện thoại. (`latest.json` chỉ để app tự kiểm tra cập nhật, không cần tải.)
@@ -53,6 +55,44 @@ Lần đầu mở, app tự chạy trình thiết lập (dành cho **phụ huynh
 Thử: mở YouTube, bé phải qua quiz.
 
 Điều hướng bằng remote: mũi tên để di chuyển, **OK** để chọn, **Back** để quay lại hoặc thoát Chế độ phụ huynh.
+
+## Play Protect chặn app
+
+Khi mở app, TV có thể hiện **"App blocked to protect your device"** (Google Play Protect) và chỉ có nút OK. Lý do: BrainBreak TV dùng quyền **Trợ năng** để biết bé đang mở app nào, còn Google tự động chặn app cài ngoài CH Play có quyền này. Chọn một trong hai cách:
+
+**Cách A: tắt quét của Play Protect rồi cài lại** (nếu TV có mục này)
+
+1. Mở **CH Play** trên TV, bấm ảnh hồ sơ, chọn **Play Protect**, vào **Cài đặt** và tắt **Quét ứng dụng bằng Play Protect**.
+2. Nếu CH Play không có, thử trong cài đặt TV: **Ứng dụng > Bảo mật & hạn chế**, hoặc **Quyền riêng tư > Bảo mật**, hoặc **Tùy chọn thiết bị > Bảo mật & hạn chế**; tìm dòng **Google Play Protect**.
+3. Gỡ BrainBreak TV nếu đã cài, cài lại bằng Downloader, mở app, xong có thể bật lại Play Protect.
+
+**Cách B: cài bằng `adb` từ máy tính** (chắc nhất, dùng khi không thấy mục Play Protect). Cách này không đi qua Downloader nên thường không bị chặn.
+
+1. TV bật **Tùy chọn nhà phát triển** (Cài đặt > Giới thiệu > bấm **Bản dựng** 7 lần) rồi bật **Gỡ lỗi USB / Gỡ lỗi mạng**. Xem địa chỉ IP của TV ở Cài đặt > Mạng & Internet.
+2. Tải `brainbreak-tv.apk` từ [Releases](https://github.com/tunglq77tls/BrainBreak-TV-releases/releases/latest) về máy tính (cùng mạng Wi-Fi với TV), mở cửa sổ lệnh trong thư mục chứa file và chạy:
+
+   ```bash
+   adb connect <địa-chỉ-IP-của-TV>:5555
+   adb devices
+   adb install -r brainbreak-tv.apk
+   ```
+
+   Lần đầu TV hỏi **Cho phép gỡ lỗi USB?**: chọn **Luôn cho phép**. `adb devices` phải hiện TV với trạng thái `device` (không phải `unauthorized`).
+
+## Quiz không hiện khi mở YouTube
+
+Thường do quyền **Trợ năng** chưa bật (cài xong, tạo hồ sơ nhưng app chưa được cấp quyền, hoặc quyền bị tắt sau khi TV khởi động lại / cài đè).
+
+1. Vào **Cài đặt > Tùy chọn thiết bị > Hỗ trợ truy cập (Trợ năng)**, chọn **BrainBreak TV** và bật **Bật**.
+2. Nếu mục bị mờ hoặc báo "Cài đặt bị hạn chế" (Android 13 trở lên): vào **Cài đặt > Ứng dụng > BrainBreak TV**, bấm menu ⋮ > **Cho phép cài đặt bị hạn chế**, rồi bật lại quyền.
+3. Nếu TV ẩn trang Trợ năng, chạy trên máy tính có `adb` (đã `adb connect` như trên):
+
+   ```bash
+   adb shell settings put secure enabled_accessibility_services com.brainbreak.tv/com.brainbreak.tv.MonitorService
+   adb shell settings put secure accessibility_enabled 1
+   ```
+
+4. Kiểm tra YouTube đã được thêm vào danh sách ứng dụng giám sát trong **Chế độ phụ huynh**. Mở lại YouTube để thử.
 
 ## Gặp lỗi thường gặp
 
