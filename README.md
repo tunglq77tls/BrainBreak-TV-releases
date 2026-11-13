@@ -59,6 +59,18 @@ Dùng khi Cách 1 không chạy được (TV không cài được Downloader, ho
         adb devices
         ```
 
+      - Vẫn `unauthorized` và TV không hiện hộp thoại: tạo lại khóa adb của máy tính để TV hỏi lại (khóa cũ được sao lưu, không xóa). Trong Git Bash:
+
+        ```bash
+        adb disconnect
+        adb kill-server
+        mkdir -p ~/.android/bak && mv ~/.android/adbkey ~/.android/adbkey.pub ~/.android/bak/
+        adb start-server
+        adb connect <địa-chỉ-IP-của-TV>:5555
+        ```
+
+        Nhìn màn hình TV ngay lúc chạy `adb connect`, hộp thoại thường hiện đúng lúc đó; tích **Luôn cho phép** rồi bấm **Cho phép**. Lưu ý: điện thoại hoặc TV khác từng cho máy này gỡ lỗi sẽ hỏi lại một lần.
+
 3. Mở **BrainBreak TV** trong danh sách ứng dụng của TV và làm theo phần dưới.
 
 ## Thiết lập lần đầu
