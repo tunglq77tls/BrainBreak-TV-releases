@@ -2,11 +2,14 @@
 
 Ứng dụng cho **Android TV / Google TV**: khi bé mở YouTube, TV360... (các ứng dụng phụ huynh chọn), bé phải trả lời vài câu **Toán, Tiếng Anh, Tiếng Việt** trước khi xem tiếp.
 
-- Yêu cầu: Android TV / Google TV **Android 9 trở lên** (có CH Play hoặc cài được file APK). Tizen (Samsung), webOS (LG) không dùng được.
+- Yêu cầu: Android TV / Google TV **Android 9 trở lên** (có CH Play hoặc cài được file APK). Tizen (Samsung), webOS (LG) không dùng được; TV Samsung/LG muốn dùng thì cắm thêm một thiết bị Android TV / Google TV vào cổng HDMI và cho bé xem YouTube qua thiết bị đó.
+- Đã thử trên một TV Android 9. Các TV và phiên bản Android khác chưa được kiểm tra đầy đủ, có thể khác ở tên menu cài đặt và việc có bị Play Protect chặn hay không.
 - Dữ liệu (hồ sơ bé, PIN, lịch sử) lưu trên chính TV, không gửi ra ngoài.
 - Bản mới nhất: [Releases](https://github.com/tunglq77tls/BrainBreak-TV-releases/releases/latest)
 
-## Cách 1: Cài qua Downloader (dễ nhất)
+## Cách 1: Cài qua Downloader (thử trước)
+
+Cách này đơn giản nhưng **có thể bị Google Play Protect chặn** (xem [Play Protect chặn app](#play-protect-chặn-app)). Nếu bị chặn thì chuyển sang cài bằng `adb` (Cách B trong mục đó).
 
 1. Trên TV mở **CH Play**, tìm và cài app **Downloader** (của AFTVnews).
 2. Vào **Cài đặt TV > Bảo mật & hạn chế** (một số TV nằm trong **Ứng dụng > Quyền đặc biệt**), bật **Cài ứng dụng không rõ nguồn gốc** cho **Downloader**. Nếu bỏ qua bước này, TV sẽ tự hỏi khi cài và dẫn bạn tới đúng trang đó.
@@ -78,6 +81,8 @@ Khi mở app, TV có thể hiện **"App blocked to protect your device"** (Goog
    ```
 
    Lần đầu TV hỏi **Cho phép gỡ lỗi USB?**: chọn **Luôn cho phép**. `adb devices` phải hiện TV với trạng thái `device` (không phải `unauthorized`).
+3. Mở app trên TV và đi qua trình thiết lập (xem [Thiết lập lần đầu](#thiết-lập-lần-đầu)).
+4. **Cài xong nên tắt Gỡ lỗi USB / Gỡ lỗi mạng** (Cài đặt > Tùy chọn thiết bị > Tùy chọn nhà phát triển), để bé không dùng được `adb` gỡ app hay tắt quyền.
 
 ## Quiz không hiện khi mở YouTube
 
@@ -92,7 +97,13 @@ Thường do quyền **Trợ năng** chưa bật (cài xong, tạo hồ sơ như
    adb shell settings put secure accessibility_enabled 1
    ```
 
-4. Kiểm tra YouTube đã được thêm vào danh sách ứng dụng giám sát trong **Chế độ phụ huynh**. Mở lại YouTube để thử.
+4. **Truy cập thông báo** (để tạm dừng video khi hiện quiz): một số TV (ví dụ Android 9) ẩn trang này nên không bật được bằng tay. Dùng `adb` (lệnh này giữ nguyên các quyền cũ của TV):
+
+   ```bash
+   adb shell cmd notification allow_listener com.brainbreak.tv/com.brainbreak.tv.MediaPauseListener
+   ```
+
+5. Kiểm tra YouTube đã được thêm vào danh sách ứng dụng giám sát trong **Chế độ phụ huynh**. Mở lại YouTube để thử.
 
 ## Gặp lỗi thường gặp
 
