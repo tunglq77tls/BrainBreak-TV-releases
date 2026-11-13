@@ -23,7 +23,13 @@ Cách này đơn giản nhưng **có thể bị Google Play Protect chặn** (xe
 
 ## Cách 2: Tải file APK từ repo rồi cài thủ công
 
-1. Mở trang [Releases](https://github.com/tunglq77tls/BrainBreak-TV-releases/releases/latest) và tải file **`brainbreak-tv.apk`** (khoảng 22 MB) về máy tính hoặc điện thoại. (`latest.json` chỉ để app tự kiểm tra cập nhật, không cần tải.)
+Dùng khi Cách 1 không chạy được (TV không cài được Downloader, hoặc Downloader bị chặn). File APK đi qua máy tính hoặc điện thoại rồi mới tới TV, vì USB và `adb` đều cần file có sẵn trên máy.
+
+1. **Tải file `brainbreak-tv.apk`** (khoảng 22 MB) về máy tính hoặc điện thoại, bằng **một** trong hai cách:
+   - **Bấm thẳng vào link này, trình duyệt tự tải file về:** [Tải brainbreak-tv.apk](https://github.com/tunglq77tls/BrainBreak-TV-releases/releases/latest/download/brainbreak-tv.apk). Link luôn trỏ tới bản mới nhất.
+   - **Hoặc tải từ trang Releases:** mở [trang bản phát hành mới nhất](https://github.com/tunglq77tls/BrainBreak-TV-releases/releases/latest), kéo xuống mục **Assets**, bấm vào tên **`brainbreak-tv.apk`**. Chỉ cần file này; `latest.json` chỉ để app tự kiểm tra cập nhật, không cần tải.
+
+   File lưu trong thư mục **Tải xuống** (Downloads) của máy. Nếu trình duyệt báo "tệp này có thể gây hại" hoặc hỏi có giữ lại không, chọn **Giữ lại** (Keep): đó là cảnh báo chung với mọi file APK tải ngoài CH Play.
 2. Đưa file vào TV bằng **một** trong các cách sau:
 
    **a) USB**
