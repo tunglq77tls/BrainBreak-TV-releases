@@ -48,6 +48,17 @@ Dùng khi Cách 1 không chạy được (TV không cài được Downloader, ho
 
       Muốn mở app luôn: `adb shell am start -n com.brainbreak.tv/.MainActivity`.
 
+   3. **Nếu báo `device unauthorized`** (hoặc `failed to authenticate`): TV chưa cho máy tính này quyền gỡ lỗi.
+      - Nhìn màn hình TV, hộp thoại **Cho phép gỡ lỗi USB/mạng?** hiện lên khi máy tính kết nối. Tích **Luôn cho phép từ máy tính này**, bấm **Cho phép**.
+      - Không thấy hộp thoại: trong **Tùy chọn nhà phát triển** của TV chọn **Thu hồi quyền gỡ lỗi USB** (Revoke USB debugging authorizations), tắt rồi bật lại **Gỡ lỗi USB / Gỡ lỗi mạng**.
+      - Rồi chạy lại, kiểm `adb devices` phải hiện `device` (không phải `unauthorized`) trước khi `adb install`:
+
+        ```bash
+        adb kill-server
+        adb connect <địa-chỉ-IP-của-TV>:5555
+        adb devices
+        ```
+
 3. Mở **BrainBreak TV** trong danh sách ứng dụng của TV và làm theo phần dưới.
 
 ## Thiết lập lần đầu
